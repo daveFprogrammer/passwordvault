@@ -1,3 +1,13 @@
-from django.shortcuts import render
+from .models import Password
+from rest_framework import serializers, viewsets
 
-# Create your views here.
+# Serializers define the API representation.
+class PasswordSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Password
+        fields = '__all__'
+
+# ViewSets define the view behavior.
+class PasswordViewSet(viewsets.ModelViewSet):
+    queryset = Password.objects.all()
+    serializer_class = PasswordSerializer
