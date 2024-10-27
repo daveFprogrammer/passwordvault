@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1; /* Consente al contenuto principale di occupare tutto lo spazio disponibile */
+}
+
+footer {
+  background-color: #222;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+
+h1 {
+  color: #007bff; /* Colore del titolo */
+}
+
+.btn-primary {
+  background-color: #007bff; /* Colore del bottone */
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3; /* Colore del bottone al passaggio del mouse */
+}
+/* src/components/HomePage.css */
+.image-resized {
+  width: 170px; /* Imposta la larghezza */
+  height: 170px; /* Imposta l'altezza */
+  border-radius: 50%; /* Crea un cerchio */
+  object-fit: cover; /* Mantiene le proporzioni senza deformare l'immagine */
+}
+.immagine-resised {
+  width: 170px; /* Imposta la larghezza */
+  height: 170px; /* Imposta l'altezza */
+  border-radius: 50%; /* Crea un cerchio */
+  object-fit: cover; /* Mantiene le proporzioni senza deformare l'immagine */
+}
+.immagine-resiliata {
+  width: 170px; /* Imposta la larghezza */
+  height: 170px; /* Imposta l'altezza */
+  border-radius: 50%; /* Crea un cerchio */
+  object-fit: cover; /* Mantiene le proporzioni senza deformare l'immagine */
+}
+/* src/App.css o un altro file CSS */
+.back-button {
+  position: fixed; /* Fissa il pulsante rispetto alla finestra */
+  top: 10px;       /* Posizionalo a 10px dal bordo superiore */
+  left: 10px;      /* Posizionalo a 10px dal bordo sinistro */
+  z-index: 1000;   /* Mantieni il pulsante sopra gli altri elementi */
+  background-color: #6c757d; /* Usa una tonalità di grigio bootstrap */
+  color: white;    /* Colore del testo */
+  padding: 5px 10px; /* Spaziatura interna */
+  border-radius: 5px; /* Bordo arrotondato */
+  width: 15%;
+}
+
+/* Miglioramento della classe esistente per il pulsante "Genera Password" */
+.button {
+  width: auto; /* Cambia da larghezza fissa a larghezza adattiva */
+  min-width: 150px; /* Imposta una larghezza minima per evitare che siano troppo piccoli */
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+  display: inline-block; /* Assicura che il pulsante non occupi tutta la larghezza */
+}
+
+
+/* Effetto hover per entrambi i pulsanti */
+.button:hover, .back-button:hover {
+  background-color: #0056b3; /* Colore più scuro per l'effetto hover */
+}
+
+.Gener-Pass {
+  text-align: center;
+  width: 25%;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  display: inline-block; /* Assicura che il pulsante non occupi tutta la larghezza */
+  font-size: 16px;
+}
+
+.loader {
+  border: 8px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 8px solid #3498db;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+footer {
+  margin-top: auto; /* Spinge il footer in fondo */
+  background-color: #f8f9fa; /* Colore di sfondo per il footer */
+  text-align: center; /* Allinea il testo al centro */
+  padding: 1rem; /* Padding per il footer */
+}
