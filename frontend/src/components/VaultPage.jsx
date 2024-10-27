@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import BackButton from './BackButton';
 
 function VaultPage() {
@@ -10,27 +11,46 @@ function VaultPage() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    const storedPasswords = localStorage.getItem("passwords");
-    if (storedPasswords) {
-      setPasswords(JSON.parse(storedPasswords));
-    }
+    const fetchPasswords = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/api/passwords/');
+        setPasswords(response.data);
+      } catch (error) {
+        console.error('Error fetching passwords:', error);
+      }
+    };
+
+    fetchPasswords();
   }, []);
 
-  const addPassword = () => {
+  const addPassword = async () => {
     if (appName.trim() && password.trim() && category.trim()) {
       const newEntry = {
-        appName: appName,
+        app_name: appName,
         category: category,
         password: password,
-        tags: tags.split(",").map(tag => tag.trim()),
+        tags: tags.split(",").map(tag => tag.trim()).join(","),
       };
-      const updatedPasswords = [...passwords, newEntry];
-      setPasswords(updatedPasswords);
-      localStorage.setItem("passwords", JSON.stringify(updatedPasswords));
-      setAppName("");
-      setCategory("");
-      setPassword("");
-      setTags("");
+
+      try {
+        const response = await axios.post('http://localhost:8000/api/passwords/', newEntry);
+        setPasswords([...passwords, response.data]);
+        setAppName("");
+        setCategory("");
+        setPassword("");
+        setTags("");
+      } catch (error) {
+        console.error('Error adding password:', error);
+      }
+    }
+  };
+
+  const deletePassword = async (id) => {
+    try {
+      await axios.delete(`http://localhost:8000/api/passwords/${id}/`);
+      setPasswords(passwords.filter(passwordEntry => passwordEntry.id !== id));
+    } catch (error) {
+      console.error('Error deleting password:', error);
     }
   };
 
@@ -38,8 +58,8 @@ function VaultPage() {
     const lowerCaseSearch = search.toLowerCase();
     return (
       passwordEntry.category.toLowerCase().includes(lowerCaseSearch) ||
-      passwordEntry.appName.toLowerCase().includes(lowerCaseSearch) ||
-      passwordEntry.tags.some(tag => tag.toLowerCase().includes(lowerCaseSearch))
+      passwordEntry.app_name.toLowerCase().includes(lowerCaseSearch) ||
+      passwordEntry.tags.split(",").some(tag => tag.toLowerCase().includes(lowerCaseSearch))
     );
   });
 
@@ -97,13 +117,13 @@ function VaultPage() {
         <h4 className="text-xl font-semibold mb-4 text-gray-700">Le tue Passwords:</h4>
         <div className="space-y-4">
           {filteredPasswords.length > 0 ? (
-            filteredPasswords.map((entry, index) => (
+            filteredPasswords.map((entry) => (
               <div
-                key={index}
+                key={entry.id}
                 className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
               >
                 <p className="text-lg font-medium text-gray-800">
-                  <strong>App/Sito:</strong> {entry.appName}
+                  <strong>App/Sito:</strong> {entry.app_name}
                 </p>
                 <p className="text-gray-600">
                   <strong>Categoria:</strong> {entry.category}
@@ -112,8 +132,14 @@ function VaultPage() {
                   <strong>Password:</strong> {entry.password}
                 </p>
                 <p className="text-gray-600">
-                  <strong>Tag:</strong> {entry.tags.join(", ")}
+                  <strong>Tag:</strong> {entry.tags}
                 </p>
+                <button
+                  className="mt-2 bg-red-500 text-white py-1 px-3 rounded-lg hover:bg-red-600"
+                  onClick={() => deletePassword(entry.id)}
+                >
+                  Elimina Password
+                </button>
               </div>
             ))
           ) : (
