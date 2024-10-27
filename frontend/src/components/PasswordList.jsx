@@ -42,6 +42,15 @@ const PasswordList = () => {
         }
     };
 
+    const deletePassword = async (id) => {
+        try {
+            await axios.delete(`http://localhost:8000/api/passwords/${id}/`);
+            setPasswords(passwords.filter(password => password.id !== id));
+        } catch (error) {
+            console.error('Error deleting password:', error);
+        }
+    };
+
     return (
         <div className="max-w-lg mx-auto p-4">
             <h1 className="text-2xl font-bold mb-4">Passwords</h1>
@@ -49,6 +58,12 @@ const PasswordList = () => {
                 {passwords.map((entry) => (
                     <li key={entry.id} className="p-3 flex justify-between items-center hover:bg-gray-100">
                         <span>{entry.app_name} - {entry.category}</span>
+                        <button
+                            onClick={() => deletePassword(entry.id)}
+                            className="bg-red-500 text-white font-bold py-1 px-3 rounded hover:bg-red-600"
+                        >
+                            Delete
+                        </button>
                     </li>
                 ))}
             </ul>
