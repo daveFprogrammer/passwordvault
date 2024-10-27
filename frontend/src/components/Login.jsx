@@ -12,21 +12,19 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.get("http://localhost:3000/users");
-      const users = response.data;
-      const user = users.find(
-        (user) => user.username === username && user.password === password
-      );
-
-      if (user) {
+      // Effettua la richiesta POST al backend Django per il login
+      const response = await axios.post("http://localhost:8000/api/users/login/", {
+        username,
+        password,
+      });
+      
+      if (response.status === 200) {
         alert("Login riuscito!");
-        navigate("/start"); // Cambia a seconda della pagina che vuoi caricare dopo il login
-      } else {
-        setError("Nome utente o password non corretti.");
+        navigate("/start"); // Cambia in base alla pagina da caricare dopo il login
       }
     } catch (error) {
       console.error("Errore di login:", error);
-      setError("Errore durante il login.");
+      setError(error.response?.data?.message || "Nome utente o password non corretti.");
     }
   };
 
@@ -49,10 +47,10 @@ function Login() {
             {error && <p className="error text-red-500">{error}</p>}
             <div>
               <label
-                htmlFor="email"
+                htmlFor="username"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Email address
+                Nome utente
               </label>
               <div className="mt-2">
                 <input
@@ -60,7 +58,7 @@ function Login() {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   required
-                  autoComplete="email"
+                  autoComplete="username"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -75,7 +73,6 @@ function Login() {
                   Password
                 </label>
                 <div className="text-sm">
-                  {/* Usa un button invece di <a> per il link "Forgot password?" */}
                   <button
                     type="button"
                     className="font-semibold text-indigo-600 hover:text-indigo-500"
@@ -108,7 +105,10 @@ function Login() {
           </form>
 
           <p className="mt-10 text-center text-sm text-gray-500">
-            Not a member? <Link to="/signup" className="font-semibold text-indigo-600 hover:text-indigo-500">Registrati qui</Link>
+            Not a member?{" "}
+            <Link to="/signup" className="font-semibold text-indigo-600 hover:text-indigo-500">
+              Registrati qui
+            </Link>
           </p>
         </div>
       </div>

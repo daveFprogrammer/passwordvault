@@ -1,4 +1,3 @@
-// src/components/SignupPage.jsx
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -6,30 +5,27 @@ import { useNavigate } from "react-router-dom";
 const SignupPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.get("http://localhost:3000/users");
-      const users = response.data;
-
-      const userExists = users.some((user) => user.username === username);
-
-      if (userExists) {
-        setError("Nome utente già esistente. Scegli un altro nome.");
-      } else {
-        await axios.post("http://localhost:3000/users", {
-          username,
-          password,
-        });
-        alert("Registrazione completata!");
-        navigate("/login");
-      }
+      // Effettua la richiesta POST al nuovo endpoint del backend Django
+      await axios.post("http://localhost:8000/api/users/register/", {
+        username,
+        password,
+        email,
+      });
+      
+      alert("Registrazione completata!");
+      navigate("/login");
     } catch (error) {
       console.error("Errore durante la registrazione:", error);
-      setError("Errore durante la registrazione.");
+      setError(
+        error.response?.data?.message || "Errore durante la registrazione."
+      );
     }
   };
 
@@ -43,6 +39,14 @@ const SignupPage = () => {
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          required
+          className="w-full p-2 border border-gray-300 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <label className="text-gray-700">Email:</label>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           required
           className="w-full p-2 border border-gray-300 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
