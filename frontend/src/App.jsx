@@ -12,6 +12,7 @@ import NotFoundPage from './components/NotFoundPage';
 import HeaderPage from './components/HeaderPage';
 import IlNostroTeam from './components/IlNostroTeam';
 import ChiSiamo from './components/ChiSIamo';
+import SettingsPage from './components/SettingsPage'
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/vault" element={<VaultPage />} />
           <Route path="/team" element={<IlNostroTeam />} />
+          <Route path="/settings" element={<SettingsPage />} />
           <Route path="/chisiamo" element={<ChiSiamo />} />
           <Route path="/list" element={<PasswordList />} />
           <Route path="*" element={<NotFoundPage />} />

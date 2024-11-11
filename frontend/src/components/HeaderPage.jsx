@@ -67,7 +67,7 @@ const HeaderPage = () => {
                       aria-labelledby="user-menu-button"
                     >
                       <Link to="/profilo" className="block px-4 py-2 text-sm text-gray-700" role="menuitem">Your Profile</Link>
-                      <Link to="/impostazioni" className="block px-4 py-2 text-sm text-gray-700" role="menuitem">Settings</Link>
+                      <Link to="/settings" className="block px-4 py-2 text-sm text-gray-700" role="menuitem">Settings</Link>
                       <Link to="/signout" className="block px-4 py-2 text-sm text-gray-700" role="menuitem">Sign out</Link>
                     </div>
                   )}
