@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import userfree from "./assets/userfree.jpg"; // Importa l'immagine
+import logovault from "./assets/logovault.jpeg"; // Importa l'immagine
+
 
 const HeaderPage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,8 +19,8 @@ const HeaderPage = () => {
             <div className="flex items-center">
               <div className="flex-shrink-0">
                 <img
-                  className="h-8 w-8"
-                  src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500"
+                  className="h-10 w-10 rounded-full"
+                  src={logovault}
                   alt="Your Company"
                 />
               </div>
@@ -51,7 +54,7 @@ const HeaderPage = () => {
                     aria-haspopup="true"
                   >
                     <span className="sr-only">Open user menu</span>
-                    <img className="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User avatar" />
+                    <img className="h-8 w-8 rounded-full" src={userfree} alt="User avatar" />
                   </button>
 
                   {isMenuOpen && (
@@ -63,7 +66,7 @@ const HeaderPage = () => {
                     >
                       <Link to="/profilo" className="block px-4 py-2 text-sm text-gray-700" role="menuitem">Your Profile</Link>
                       <Link to="/impostazioni" className="block px-4 py-2 text-sm text-gray-700" role="menuitem">Settings</Link>
-                      <Link to="/sign" className="block px-4 py-2 text-sm text-gray-700" role="menuitem">Sign out</Link>
+                      <Link to="/signout" className="block px-4 py-2 text-sm text-gray-700" role="menuitem">Sign out</Link>
                     </div>
                   )}
                 </div>
