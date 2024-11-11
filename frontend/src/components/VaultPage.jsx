@@ -9,6 +9,7 @@ function VaultPage() {
   const [password, setPassword] = useState("");
   const [tags, setTags] = useState("");
   const [search, setSearch] = useState("");
+  const [showPassword, setShowPassword] = useState({}); // Stato per controllare visibilità delle password
 
   useEffect(() => {
     const fetchPasswords = async () => {
@@ -54,6 +55,10 @@ function VaultPage() {
     }
   };
 
+  const toggleShowPassword = (id) => {
+    setShowPassword((prev) => ({ ...prev, [id]: !prev[id] }));
+  };
+
   const filteredPasswords = passwords.filter(passwordEntry => {
     const lowerCaseSearch = search.toLowerCase();
     return (
@@ -69,6 +74,7 @@ function VaultPage() {
         <BackButton />
         <h2 className="text-4xl font-bold text-center mb-6 text-gray-800">Cassaforte delle Password</h2>
 
+        {/* Form di aggiunta password */}
         <div className="mb-8">
           <input
             type="text"
@@ -106,6 +112,7 @@ function VaultPage() {
           </button>
         </div>
 
+        {/* Campo di ricerca */}
         <input
           type="text"
           className="w-full px-4 py-3 mb-6 rounded-lg border border-gray-300 focus:border-blue-500 focus:outline-none"
@@ -114,6 +121,7 @@ function VaultPage() {
           onChange={(e) => setSearch(e.target.value)}
         />
 
+        {/* Visualizzazione delle password */}
         <h4 className="text-xl font-semibold mb-4 text-gray-700">Le tue Passwords:</h4>
         <div className="space-y-4">
           {filteredPasswords.length > 0 ? (
@@ -128,11 +136,24 @@ function VaultPage() {
                 <p className="text-gray-600">
                   <strong>Categoria:</strong> {entry.category}
                 </p>
-                <p className="text-gray-600">
-                  <strong>Password:</strong> {entry.password}
+                <p className="text-gray-600 flex items-center">
+                  <strong>Password:</strong> 
+                  <span className="ml-2">
+                    {showPassword[entry.id] ? entry.password : "●●●●●●●●"}
+                  </span>
+                  <button
+                    onClick={() => toggleShowPassword(entry.id)}
+                    className="ml-2 text-blue-500 focus:outline-none"
+                  >
+                    {showPassword[entry.id] ? "👁️" : "🙈"}
+                  </button>
                 </p>
                 <p className="text-gray-600">
-                  <strong>Tag:</strong> {entry.tags}
+                  <strong>Tag:</strong> {entry.tags.split(',').map((tag, index) => (
+                    <span key={index} className="inline-block bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">
+                      {tag}
+                    </span>
+                  ))}
                 </p>
                 <button
                   className="mt-2 bg-red-500 text-white py-1 px-3 rounded-lg hover:bg-red-600"
