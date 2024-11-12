@@ -5,7 +5,7 @@ from rest_framework import serializers, viewsets
 class PasswordSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Password
-        fields = ['id', 'app_name', 'category', 'password', 'notes', 'created_at']
+        fields = ['id', 'app_name', 'category', 'password', 'tags', 'created_at']
 
 # ViewSets define the view behavior.
 class PasswordViewSet(viewsets.ModelViewSet):
