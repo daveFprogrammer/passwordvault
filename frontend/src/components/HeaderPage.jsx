@@ -1,15 +1,20 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useProfile } from "../ProfileContext";
-import logovault from "./assets/logovault.jpeg"; // Importa l'immagine
+import logovault from "./assets/logovault.jpeg";
+import userfree from "./assets/userfree.jpg";
 
 const HeaderPage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { profile } = useProfile(); // Ottieni il profilo dal contesto
 
+  // Funzione per alternare il menu del profilo
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  // Determina l'immagine del profilo: usa userfree come fallback
+  const userAvatar = profile?.avatar || userfree;
 
   return (
     <div className="min-h-full">
@@ -26,18 +31,47 @@ const HeaderPage = () => {
               </div>
               <div className="hidden md:block">
                 <div className="ml-8 flex items-baseline space-x-2 overflow-x-auto">
-                  <Link to="/" className="rounded-md bg-gray-900 px-2 py-1 text-base font-medium text-white">Home</Link>
-                  <Link to="/Team" className="rounded-md px-2 py-1 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Il nostro Team</Link>
-                  <Link to="/vault" className="rounded-md px-2 py-1 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Cassaforte</Link>
-                  <Link to="/generate" className="rounded-md px-2 py-1 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Generatore di password</Link>
-                  <Link to="/chisiamo" className="rounded-md px-2 py-1 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Chi Siamo</Link>
-                  <Link to="/indietro" className="rounded-md px-2 py-1 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Torna indietro</Link>
+                  <Link
+                    to="/"
+                    className="rounded-md bg-gray-900 px-2 py-1 text-base font-medium text-white"
+                  >
+                    Home
+                  </Link>
+                  <Link
+                    to="/Team"
+                    className="rounded-md px-2 py-1 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                  >
+                    Il nostro Team
+                  </Link>
+                  <Link
+                    to="/vault"
+                    className="rounded-md px-2 py-1 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                  >
+                    Cassaforte
+                  </Link>
+                  <Link
+                    to="/generate"
+                    className="rounded-md px-2 py-1 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                  >
+                    Generatore di password
+                  </Link>
+                  <Link
+                    to="/chisiamo"
+                    className="rounded-md px-2 py-1 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                  >
+                    Chi Siamo
+                  </Link>
+                  <Link
+                    to="/indietro"
+                    className="rounded-md px-2 py-1 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                  >
+                    Torna indietro
+                  </Link>
                 </div>
               </div>
             </div>
             <div className="hidden md:block">
               <div className="ml-4 flex items-center md:ml-6">
-                {/* Dropdown del profilo */}
                 <div className="relative ml-3">
                   <button
                     type="button"
@@ -48,7 +82,11 @@ const HeaderPage = () => {
                     aria-haspopup="true"
                   >
                     <span className="sr-only">Open user menu</span>
-                    <img className="h-12 w-12 rounded-full" src={profile.avatar} alt="User avatar" />
+                    <img
+                      className="h-12 w-12 rounded-full"
+                      src={userAvatar} // Fallback a userfree
+                      alt="User avatar"
+                    />
                   </button>
 
                   {isMenuOpen && (
@@ -58,14 +96,28 @@ const HeaderPage = () => {
                       aria-orientation="vertical"
                       aria-labelledby="user-menu-button"
                     >
-                      <p className="block px-4 py-2 text-sm text-gray-700">Ciao, {profile.username}!</p>
-                      <Link to="/profilo" className="block px-4 py-2 text-sm text-gray-700" role="menuitem">
+                      <p className="block px-4 py-2 text-sm text-gray-700">
+                        Ciao, {profile.username || "Utente"}!
+                      </p>
+                      <Link
+                        to="/profilo"
+                        className="block px-4 py-2 text-sm text-gray-700"
+                        role="menuitem"
+                      >
                         Your Profile
                       </Link>
-                      <Link to="/settings" className="block px-4 py-2 text-sm text-gray-700" role="menuitem">
+                      <Link
+                        to="/settings"
+                        className="block px-4 py-2 text-sm text-gray-700"
+                        role="menuitem"
+                      >
                         Settings
                       </Link>
-                      <Link to="/signout" className="block px-4 py-2 text-sm text-gray-700" role="menuitem">
+                      <Link
+                        to="/signout"
+                        className="block px-4 py-2 text-sm text-gray-700"
+                        role="menuitem"
+                      >
                         Sign Out
                       </Link>
                     </div>
