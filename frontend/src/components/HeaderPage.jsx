@@ -26,12 +26,12 @@ const HeaderPage = () => {
               </div>
               <div className="hidden md:block">
                 <div className="ml-8 flex items-baseline space-x-2 overflow-x-auto">
-                  <Link to="/" className="rounded-md bg-gray-900 px-2 py-1 text-xs font-medium text-white">Home</Link>
-                  <Link to="/Team" className="rounded-md px-2 py-1 text-xs font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Il nostro Team</Link>
-                  <Link to="/vault" className="rounded-md px-2 py-1 text-xs font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Cassaforte</Link>
-                  <Link to="/generate" className="rounded-md px-2 py-1 text-xs font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Generatore di password</Link>
-                  <Link to="/chisiamo" className="rounded-md px-2 py-1 text-xs font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Chi Siamo</Link>
-                  <Link to="/indietro" className="rounded-md px-2 py-1 text-xs font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Torna indietro</Link>
+                  <Link to="/" className="rounded-md bg-gray-900 px-2 py-1 text-base font-medium text-white">Home</Link>
+                  <Link to="/Team" className="rounded-md px-2 py-1 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Il nostro Team</Link>
+                  <Link to="/vault" className="rounded-md px-2 py-1 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Cassaforte</Link>
+                  <Link to="/generate" className="rounded-md px-2 py-1 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Generatore di password</Link>
+                  <Link to="/chisiamo" className="rounded-md px-2 py-1 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Chi Siamo</Link>
+                  <Link to="/indietro" className="rounded-md px-2 py-1 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Torna indietro</Link>
                 </div>
               </div>
             </div>

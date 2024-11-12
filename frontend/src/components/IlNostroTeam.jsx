@@ -23,7 +23,10 @@ const IlNostroTeam = () => {
         <div className="max-w-xl">
           <h2 className="text-pretty text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl">Il nostro team</h2>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            Siamo un gruppo dinamico di individui appassionati di ciò che facciamo e dedicati a offrire i migliori risultati ai nostri clienti.
+            Il nostro team
+            Siamo un gruppo dinamico di professionisti altamente qualificati, uniti dalla passione per il nostro lavoro e dalla volontà di fare la differenza. Ogni membro del nostro team porta con sé una vasta esperienza, competenze specializzate e un impegno costante nel fornire soluzioni innovative e su misura per i nostri clienti. La nostra forza risiede nella collaborazione e nella sinergia che creiamo tra di noi, affrontando ogni sfida con creatività, dedizione e un approccio orientato ai risultati.
+
+            Ci impegniamo a mantenere elevati standard di eccellenza, ponendo sempre il cliente al centro del nostro operato. La nostra missione è costruire relazioni di fiducia e durature, supportando i nostri clienti in ogni fase del loro percorso e contribuendo al loro successo. Siamo pronti a superare ogni aspettativa e a fare il massimo per trasformare le sfide in opportunità concrete.
           </p>
         </div>
 
