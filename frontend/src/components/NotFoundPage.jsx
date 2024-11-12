@@ -5,7 +5,7 @@ const NotFoundPage = () => {
   return (
     <main className="grid min-h-full place-items-center bg-white px-6 py-24 sm:py-32 lg:px-8">
       <div className="text-center">
-        <p className="text-base font-semibold text-indigo-600 ">404</p>
+        <p className="text-7xl font-semibold text-indigo-600 ">404</p>
         <h1 className="mt-4 text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl">Pagina non trovata</h1>
         <p className="mt-6 text-lg text-gray-500">Spiacenti, non siamo riusciti a trovare la pagina che stai cercando.</p>
         <div className="mt-10 flex items-center justify-center gap-x-6">
@@ -15,7 +15,7 @@ const NotFoundPage = () => {
           >
             Torna alla home
           </Link>
-          <Link to="/contatta-supporto" className="text-sm font-semibold text-gray-900">
+          <Link to="/contatta-supporto" className="text-3xl font-semibold text-red-400">
             Contatta il supporto <span aria-hidden="true">&rarr;</span>
           </Link>
         </div>
