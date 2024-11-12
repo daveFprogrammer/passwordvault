@@ -98,13 +98,13 @@ const ContattaSupporto = () => {
         <div className="mt-8 text-gray-700 dark:text-gray-300">
           <h2 className="text-xl font-semibold mb-4">Informazioni di contatto</h2>
           <p className="flex items-center gap-2">
-            <FaEnvelope /> supporto@tuodominio.it
+            <FaEnvelope /> supporto@passwordvault.it
           </p>
           <p className="flex items-center gap-2">
             <FaPhone /> +39 123 456 789
           </p>
           <p className="flex items-center gap-2">
-            <FaMapMarkerAlt /> Via Roma, 123, Milano, Italia
+            <FaMapMarkerAlt /> Via Enrico Mayer, 38, Livorno, Italia
           </p>
         </div>
       </div>
