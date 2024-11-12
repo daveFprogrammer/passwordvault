@@ -15,7 +15,7 @@ const NotFoundPage = () => {
           >
             Torna alla home
           </Link>
-          <Link to="/supporto" className="text-sm font-semibold text-gray-900">
+          <Link to="/contatta-supporto" className="text-sm font-semibold text-gray-900">
             Contatta il supporto <span aria-hidden="true">&rarr;</span>
           </Link>
         </div>

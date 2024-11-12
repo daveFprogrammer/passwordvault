@@ -16,6 +16,7 @@ import ChiSiamo from './components/ChiSIamo';
 import SettingsPage from './components/SettingsPage'
 import YourProfilePage from './components/YourProfilePage';
 import SignOut from './components/SignOut';
+import ContattaSupporto from './components/ContattaSupporto';
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/chisiamo" element={<ChiSiamo />} />
           <Route path="/profilo" element={<YourProfilePage />} />
+          <Route path="/contatta-supporto" element={<ContattaSupporto />} />
           <Route path="/signout" element={<SignOut />} />
           <Route path="/list" element={<PasswordList />} />
           <Route path="*" element={<NotFoundPage />} />
