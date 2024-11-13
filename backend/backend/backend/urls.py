@@ -20,7 +20,7 @@ from rest_framework import routers
 from passwords.views import PasswordViewSet
 
 router = routers.DefaultRouter()
-router.register(r'passwords', PasswordViewSet)
+router.register(r'passwords', PasswordViewSet, basename='password')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

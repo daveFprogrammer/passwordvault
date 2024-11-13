@@ -11,6 +11,7 @@ class PasswordSerializer(serializers.HyperlinkedModelSerializer):
 # ViewSets define the view behavior.
 class PasswordViewSet(viewsets.ModelViewSet):
     serializer_class = PasswordSerializer
+    queryset = Password.objects.all()
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
