@@ -13,18 +13,26 @@ function Login() {
     e.preventDefault();
     try {
       // Effettua la richiesta POST al backend Django per il login
-      const response = await axios.post("http://localhost:8000/api/users/login/", {
-        username,
-        password,
-      });
-      
+      const response = await axios.post(
+        "http://localhost:8000/api/users/login/",
+        {
+          username,
+          password,
+        }
+      );
+
       if (response.status === 200) {
+        // Salva il token JWT in localStorage
+        localStorage.setItem("auth_token", response.data.token); // Assumendo che il token sia nella risposta come 'token'
+
         alert("Login riuscito!");
         navigate("/start"); // Cambia in base alla pagina da caricare dopo il login
       }
     } catch (error) {
       console.error("Errore di login:", error);
-      setError(error.response?.data?.message || "Nome utente o password non corretti.");
+      setError(
+        error.response?.data?.message || "Nome utente o password non corretti."
+      );
     }
   };
 
@@ -106,7 +114,10 @@ function Login() {
 
           <p className="mt-10 text-center text-sm text-gray-500">
             Not a member?{" "}
-            <Link to="/signup" className="font-semibold text-indigo-600 hover:text-indigo-500">
+            <Link
+              to="/signup"
+              className="font-semibold text-indigo-600 hover:text-indigo-500"
+            >
               Registrati qui
             </Link>
           </p>

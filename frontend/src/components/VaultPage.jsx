@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import BackButton from './BackButton';
+import BackButton from "./BackButton";
 
 function VaultPage() {
   const [passwords, setPasswords] = useState([]);
@@ -13,11 +13,28 @@ function VaultPage() {
 
   useEffect(() => {
     const fetchPasswords = async () => {
+      const token = localStorage.getItem("auth_token");
+
+      if (!token) {
+        alert("Devi essere autenticato per visualizzare le password.");
+        return;
+      }
+
       try {
-        const response = await axios.get('http://localhost:8000/api/passwords/');
+        const response = await axios.get(
+          "http://localhost:8000/api/passwords/",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Passa il token nell'intestazione Authorization
+            },
+          }
+        );
         setPasswords(response.data);
       } catch (error) {
-        console.error('Error fetching passwords:', error);
+        console.error("Error fetching passwords:", error);
+        if (error.response && error.response.status === 403) {
+          alert("Accesso negato. Verifica di essere autenticato.");
+        }
       }
     };
 
@@ -25,23 +42,47 @@ function VaultPage() {
   }, []);
 
   const addPassword = async () => {
+    // Ottieni il token JWT da localStorage
+    const token = localStorage.getItem("auth_token");
+
+    if (!token) {
+      alert("Devi essere autenticato per aggiungere una password.");
+      return;
+    }
+
     if (appName.trim() && password.trim() && category.trim()) {
       const newEntry = {
         app_name: appName,
         category: category,
         password: password,
-        tags: tags.split(",").map(tag => tag.trim()).join(","),
+        tags: tags
+          .split(",")
+          .map((tag) => tag.trim())
+          .join(","),
       };
 
       try {
-        const response = await axios.post('http://localhost:8000/api/passwords/', newEntry);
+        // Aggiungi il token nelle intestazioni della richiesta
+        const response = await axios.post(
+          "http://localhost:8000/api/passwords/",
+          newEntry,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Passa il token nell'intestazione Authorization
+            },
+          }
+        );
+
+        // Aggiorna lo stato con la nuova password aggiunta
         setPasswords([...passwords, response.data]);
+
+        // Reset dei campi del form
         setAppName("");
         setCategory("");
         setPassword("");
         setTags("");
       } catch (error) {
-        console.error('Error adding password:', error);
+        console.error("Error adding password:", error);
       }
     }
   };
@@ -49,9 +90,11 @@ function VaultPage() {
   const deletePassword = async (id) => {
     try {
       await axios.delete(`http://localhost:8000/api/passwords/${id}/`);
-      setPasswords(passwords.filter(passwordEntry => passwordEntry.id !== id));
+      setPasswords(
+        passwords.filter((passwordEntry) => passwordEntry.id !== id)
+      );
     } catch (error) {
-      console.error('Error deleting password:', error);
+      console.error("Error deleting password:", error);
     }
   };
 
@@ -59,12 +102,14 @@ function VaultPage() {
     setShowPassword((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
-  const filteredPasswords = passwords.filter(passwordEntry => {
+  const filteredPasswords = passwords.filter((passwordEntry) => {
     const lowerCaseSearch = search.toLowerCase();
     return (
       passwordEntry.category.toLowerCase().includes(lowerCaseSearch) ||
       passwordEntry.app_name.toLowerCase().includes(lowerCaseSearch) ||
-      passwordEntry.tags.split(",").some(tag => tag.toLowerCase().includes(lowerCaseSearch))
+      passwordEntry.tags
+        .split(",")
+        .some((tag) => tag.toLowerCase().includes(lowerCaseSearch))
     );
   });
 
@@ -72,7 +117,9 @@ function VaultPage() {
     <div className="min-h-screen bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 py-12 px-6">
       <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg">
         <BackButton />
-        <h2 className="text-4xl font-bold text-center mb-6 text-gray-800">Cassaforte delle Password</h2>
+        <h2 className="text-4xl font-bold text-center mb-6 text-gray-800">
+          Cassaforte delle Password
+        </h2>
 
         {/* Form di aggiunta password */}
         <div className="mb-8">
@@ -122,7 +169,9 @@ function VaultPage() {
         />
 
         {/* Visualizzazione delle password */}
-        <h4 className="text-xl font-semibold mb-4 text-gray-700">Le tue Passwords:</h4>
+        <h4 className="text-xl font-semibold mb-4 text-gray-700">
+          Le tue Passwords:
+        </h4>
         <div className="space-y-4">
           {filteredPasswords.length > 0 ? (
             filteredPasswords.map((entry) => (
@@ -137,7 +186,7 @@ function VaultPage() {
                   <strong>Categoria:</strong> {entry.category}
                 </p>
                 <p className="text-gray-600 flex items-center">
-                  <strong>Password:</strong> 
+                  <strong>Password:</strong>
                   <span className="ml-2">
                     {showPassword[entry.id] ? entry.password : "●●●●●●●●"}
                   </span>
@@ -149,8 +198,12 @@ function VaultPage() {
                   </button>
                 </p>
                 <p className="text-gray-600">
-                  <strong>Tag:</strong> {entry.tags.split(',').map((tag, index) => (
-                    <span key={index} className="inline-block bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">
+                  <strong>Tag:</strong>{" "}
+                  {entry.tags.split(",").map((tag, index) => (
+                    <span
+                      key={index}
+                      className="inline-block bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded"
+                    >
                       {tag}
                     </span>
                   ))}
@@ -164,7 +217,9 @@ function VaultPage() {
               </div>
             ))
           ) : (
-            <div className="text-center text-gray-600">Nessuna password trovata.</div>
+            <div className="text-center text-gray-600">
+              Nessuna password trovata.
+            </div>
           )}
         </div>
       </div>
