@@ -17,6 +17,7 @@ import YourProfilePage from './components/YourProfilePage';
 import SignOut from './components/SignOut';
 import ContattaSupporto from './components/ContattaSupporto';
 import PrivacyPolicyPage from './components/PrivacyPolicyPage';
+import TermsOfServicePage from './components/TermsOfServicePage';
 
 const App = () => {
   return (
@@ -37,6 +38,7 @@ const App = () => {
           <Route path="/chisiamo" element={<ChiSiamo />} />
           <Route path="/profilo" element={<YourProfilePage />} />
           <Route path="/privacy" element={<PrivacyPolicyPage />} />
+          <Route path="/terminidiservizio" element={<TermsOfServicePage />} />
           <Route path="/contatta-supporto" element={<ContattaSupporto />} />
           <Route path="/signout" element={<SignOut />} />
           <Route path="*" element={<NotFoundPage />} />

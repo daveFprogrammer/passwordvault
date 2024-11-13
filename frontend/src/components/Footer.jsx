@@ -11,7 +11,7 @@ const Footer = () => {
           <Link to="/contatta-supporto" className="text-white mx-2">contatti
           </Link>
           <Link to="/privacy" className="text-white mx-2">Privacy</Link>
-          <a href="#!" className="text-white mx-2">Termini di servizio</a>
+          <Link to="/terminidiservizio" className="text-white mx-2">Termini di servizio</Link>
         </div>
         <div className="mt-2">
           <a href="#!" className="text-white mx-1">Facebook</a>
