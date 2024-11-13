@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const TermsOfServicePage = () => {
   return (
@@ -46,7 +47,7 @@ const TermsOfServicePage = () => {
         <h2 className="text-xl font-semibold text-gray-700 mt-6">5. Privacy</h2>
         <p className="text-gray-600 leading-relaxed">
           Per informazioni su come trattiamo i tuoi dati personali, consulta la nostra 
-          <a href="/privacy-policy" className="text-blue-500 hover:underline ml-1">Privacy Policy</a>.
+          <Link to="/privacy" className="text-blue-500 hover:underline ml-1">Privacy Policy</Link>.
         </p>
 
         <h2 className="text-xl font-semibold text-gray-700 mt-6">6. Limitazioni di Responsabilità</h2>
