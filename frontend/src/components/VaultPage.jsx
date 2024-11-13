@@ -80,7 +80,20 @@ function VaultPage() {
 
   const deletePassword = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/api/passwords/${id}/`);
+      // Recupera il token JWT dal localStorage
+      const token = localStorage.getItem("auth_token");
+
+      // Aggiungi il token nell'intestazione Authorization
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`, // Aggiungi il token JWT all'intestazione
+        },
+      };
+
+      // Effettua la richiesta DELETE al backend
+      await axios.delete(`http://localhost:8000/api/passwords/${id}/`, config);
+
+      // Filtra l'elenco delle password rimuovendo quella eliminata
       setPasswords(
         passwords.filter((passwordEntry) => passwordEntry.id !== id)
       );
