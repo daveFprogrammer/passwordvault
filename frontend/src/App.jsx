@@ -8,7 +8,6 @@ import Footer from './components/Footer';
 import SignupPage from './components/SignupPage';
 import VaultPage from './components/VaultPage';
 import Login from './components/Login';
-import PasswordList from './components/PasswordList';
 import NotFoundPage from './components/NotFoundPage';
 import HeaderPage from './components/HeaderPage';
 import IlNostroTeam from './components/IlNostroTeam';
@@ -38,7 +37,6 @@ const App = () => {
           <Route path="/profilo" element={<YourProfilePage />} />
           <Route path="/contatta-supporto" element={<ContattaSupporto />} />
           <Route path="/signout" element={<SignOut />} />
-          <Route path="/list" element={<PasswordList />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>
