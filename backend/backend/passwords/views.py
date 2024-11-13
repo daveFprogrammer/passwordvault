@@ -1,4 +1,5 @@
 from .models import Password
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import serializers, viewsets
 
 # Serializers define the API representation.
@@ -9,5 +10,11 @@ class PasswordSerializer(serializers.HyperlinkedModelSerializer):
 
 # ViewSets define the view behavior.
 class PasswordViewSet(viewsets.ModelViewSet):
-    queryset = Password.objects.all()
     serializer_class = PasswordSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Password.objects.filter(user=self.request.user)
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
