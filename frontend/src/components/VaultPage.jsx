@@ -16,7 +16,7 @@ function VaultPage() {
       const token = localStorage.getItem("auth_token");
 
       if (!token) {
-        alert("Devi essere autenticato per visualizzare le password.");
+        alert("Accesso negato. Verifica di essere autenticato.");
         return;
       }
 
@@ -25,16 +25,13 @@ function VaultPage() {
           "http://localhost:8000/api/passwords/",
           {
             headers: {
-              Authorization: `Bearer ${token}`, // Passa il token nell'intestazione Authorization
+              Authorization: `Bearer ${token}`,
             },
           }
         );
         setPasswords(response.data);
       } catch (error) {
-        console.error("Error fetching passwords:", error);
-        if (error.response && error.response.status === 403) {
-          alert("Accesso negato. Verifica di essere autenticato.");
-        }
+        console.error("Errore durante il recupero delle password:", error);
       }
     };
 
@@ -42,11 +39,10 @@ function VaultPage() {
   }, []);
 
   const addPassword = async () => {
-    // Ottieni il token JWT da localStorage
     const token = localStorage.getItem("auth_token");
 
     if (!token) {
-      alert("Devi essere autenticato per aggiungere una password.");
+      alert("Accesso negato. Verifica di essere autenticato.");
       return;
     }
 
@@ -62,27 +58,22 @@ function VaultPage() {
       };
 
       try {
-        // Aggiungi il token nelle intestazioni della richiesta
         const response = await axios.post(
           "http://localhost:8000/api/passwords/",
           newEntry,
           {
             headers: {
-              Authorization: `Bearer ${token}`, // Passa il token nell'intestazione Authorization
+              Authorization: `Bearer ${token}`, // Includi il token
             },
           }
         );
-
-        // Aggiorna lo stato con la nuova password aggiunta
         setPasswords([...passwords, response.data]);
-
-        // Reset dei campi del form
         setAppName("");
         setCategory("");
         setPassword("");
         setTags("");
       } catch (error) {
-        console.error("Error adding password:", error);
+        console.error("Errore aggiungendo la password:", error);
       }
     }
   };

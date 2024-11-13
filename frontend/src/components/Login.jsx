@@ -21,17 +21,21 @@ function Login() {
         }
       );
 
-      if (response.status === 200) {
+      // Verifica che la risposta contenga il token
+      if (response.status === 200 && response.data.token) {
         // Salva il token JWT in localStorage
-        localStorage.setItem("auth_token", response.data.token); // Assumendo che il token sia nella risposta come 'token'
+        localStorage.setItem("auth_token", response.data.token);
 
         alert("Login riuscito!");
-        navigate("/start"); // Cambia in base alla pagina da caricare dopo il login
+        navigate("/vault"); // Naviga alla pagina della cassaforte
+      } else {
+        throw new Error("Token non trovato nella risposta.");
       }
     } catch (error) {
       console.error("Errore di login:", error);
       setError(
-        error.response?.data?.message || "Nome utente o password non corretti."
+        error.response?.data?.message ||
+          "Si è verificato un errore durante il login."
       );
     }
   };

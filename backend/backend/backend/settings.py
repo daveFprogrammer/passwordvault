@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,6 +30,23 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),  # Durata del token di accesso
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),     # Durata del token di refresh
+    'ROTATE_REFRESH_TOKENS': False,                   # Se desideri ruotare i refresh tokens
+    'BLACKLIST_AFTER_ROTATION': True,                # Se vuoi blacklistare i refresh token usati
+    'ALGORITHM': 'HS256',                             # Algoritmo di cifratura
+    'SIGNING_KEY': 'xBzp4QqDo0dn0UNVNVCn4M5xCcvsACsZsODRMZQNPnc',  # Usa la chiave segreta per firmare i JWT
+    'VERIFYING_KEY': None,                            # Se desideri un'ulteriore chiave per la verifica
+    'AUDIENCE': None,                                 # Se hai bisogno di un audience
+    'ISSUER': None,                                   # Se hai bisogno di un issuer
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
 
 # Application definition
 
@@ -41,6 +59,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'passwords',
     'rest_framework',
+    'rest_framework_simplejwt',
     'corsheaders',
 ]
 

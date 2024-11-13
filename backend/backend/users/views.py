@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 from .serializers import UserSerializer
 from django.contrib.auth import authenticate
 from rest_framework.decorators import api_view
+from rest_framework_simplejwt.tokens import RefreshToken
 
 class RegisterUserView(APIView):
     def post(self, request):
@@ -22,7 +23,11 @@ def login_view(request):
 
     if user is not None:
         # Autenticazione riuscita
-        return Response({"message": "Login riuscito!"}, status=status.HTTP_200_OK)
+        refresh = RefreshToken.for_user(user)
+        return Response({
+            "message": "Login riuscito!",
+            "token": str(refresh.access_token)  # Restituisce il token
+        }, status=status.HTTP_200_OK)
     else:
         # Autenticazione fallita
         return Response({"message": "Nome utente o password non corretti."}, status=status.HTTP_401_UNAUTHORIZED)
