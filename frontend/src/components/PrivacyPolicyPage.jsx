@@ -13,7 +13,7 @@ const PrivacyPolicyPage = () => {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="max-w-4xl mx-auto  shadow-md rounded-lg p-8 bg-black bg-opacity-25">
+      <div className="max-w-4xl mx-auto  shadow-md rounded-lg p-8 bg-black bg-opacity-65">
         <h1 className="text-3xl font-bold text-white mb-4">
           Privacy Policy
         </h1>
