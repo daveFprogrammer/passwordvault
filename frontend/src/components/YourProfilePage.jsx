@@ -65,11 +65,7 @@ const YourProfilePage = () => {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfileImage(reader.result);
-      };
-      reader.readAsDataURL(file);
+      setProfileImage(file); // Memorizza il file direttamente
     }
   };
 
@@ -83,10 +79,12 @@ const YourProfilePage = () => {
 
     setLoading(true);
     const formData = new FormData();
-    formData.append("profile_image", profileImage);
-    formData.append("phone_number", phoneNumber);
-    formData.append("email", email);
-    formData.append("two_factor_auth", twoFactorAuth);
+    if (profileImage instanceof File) {
+      formData.append("profile_image", profileImage); // Aggiungi il file direttamente
+    }
+    if (phoneNumber) formData.append("phone_number", phoneNumber);
+    if (email) formData.append("email", email);
+    formData.append("two_factor_auth", twoFactorAuth ? "true" : "false");
 
     try {
       const response = await axios.put(
@@ -94,7 +92,6 @@ const YourProfilePage = () => {
         formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${token}`,
           },
         }
@@ -106,6 +103,8 @@ const YourProfilePage = () => {
       if (error.response && error.response.status === 401) {
         alert("Sessione scaduta. Effettua nuovamente il login.");
         navigate("/login");
+      } else if (error.response && error.response.status === 400) {
+        alert("Errore nella richiesta: controlla i dati inseriti.");
       } else {
         alert(
           "Si è verificato un errore durante il salvataggio delle modifiche."
