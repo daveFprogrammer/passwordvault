@@ -1,3 +1,7 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-# Create your models here.
+class CustomUser(AbstractUser):
+    profile_image = models.ImageField(upload_to='profile_images/', null=True, blank=True)
+    phone_number = models.CharField(max_length=15, null=True, blank=True)
+    two_factor_auth = models.BooleanField(default=False)
