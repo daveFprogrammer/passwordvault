@@ -3,13 +3,16 @@ import axios from "axios";
 import { useProfile } from "../ProfileContext";
 import { useNavigate } from "react-router-dom";
 
+import user1 from "./assets/user1.png";
+import user2 from "./assets/user2.png";
+import user3 from "./assets/user3.png";
+
 const YourProfilePage = () => {
   const { profile, setProfile } = useProfile();
   const navigate = useNavigate();
 
-  const [profileImage, setProfileImage] = useState(
-    profile.avatar || "/path/to/default/avatar.jpg"
-  );
+  const profileImages = [user1, user2, user3];
+  const [profileImageIndex, setProfileImageIndex] = useState(0);
   const [phoneNumber, setPhoneNumber] = useState(
     profile.phoneNumber || "+39 123 456 7890"
   );
@@ -19,10 +22,8 @@ const YourProfilePage = () => {
   );
   const [loading, setLoading] = useState(false);
 
-  // Recupera il token di autenticazione dal localStorage
   const token = localStorage.getItem("auth_token");
 
-  // Funzione per recuperare i dati del profilo all'inizio
   useEffect(() => {
     const fetchProfileData = async () => {
       if (!token) {
@@ -43,9 +44,6 @@ const YourProfilePage = () => {
           }
         );
         setProfile(response.data);
-        setProfileImage(
-          response.data.profile_image || "/path/to/default/avatar.jpg"
-        );
         setPhoneNumber(response.data.phone_number || "+39 123 456 7890");
         setEmail(response.data.email || "user@example.com");
         setTwoFactorAuth(response.data.two_factor_auth || false);
@@ -61,15 +59,10 @@ const YourProfilePage = () => {
     fetchProfileData();
   }, [setProfile, navigate, token]);
 
-  // Funzione per gestire l'upload dell'immagine
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setProfileImage(file); // Memorizza il file direttamente
-    }
+  const handleSwitchImage = () => {
+    setProfileImageIndex((prevIndex) => (prevIndex + 1) % profileImages.length);
   };
 
-  // Funzione per salvare le modifiche
   const handleSaveChanges = async () => {
     if (!token) {
       alert("Token non trovato. Effettua nuovamente il login.");
@@ -79,9 +72,7 @@ const YourProfilePage = () => {
 
     setLoading(true);
     const formData = new FormData();
-    if (profileImage instanceof File) {
-      formData.append("profile_image", profileImage); // Aggiungi il file direttamente
-    }
+    formData.append("profile_image", profileImages[profileImageIndex]);
     if (phoneNumber) formData.append("phone_number", phoneNumber);
     if (email) formData.append("email", email);
     formData.append("two_factor_auth", twoFactorAuth ? "true" : "false");
@@ -126,23 +117,16 @@ const YourProfilePage = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
           <div className="col-span-1 text-center">
             <img
-              src={profileImage}
+              src={profileImages[profileImageIndex]}
               alt="Profile"
               className="w-32 h-32 mx-auto rounded-full object-cover border-2 border-gray-300"
             />
-            <label
-              htmlFor="upload-photo"
+            <button
+              onClick={handleSwitchImage}
               className="text-sm text-blue-500 hover:underline cursor-pointer"
             >
               Cambia immagine
-            </label>
-            <input
-              type="file"
-              id="upload-photo"
-              className="hidden"
-              onChange={handleImageChange}
-              accept="image/*"
-            />
+            </button>
           </div>
 
           <div className="col-span-2">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaEnvelope, FaLock, FaBell, FaUser, FaMoon, FaSun } from 'react-icons/fa';
+import { FaLock, FaBell, FaMoon, FaSun } from 'react-icons/fa';
 
 const SettingsPage = () => {
   // Stato per il dark mode
@@ -42,38 +42,6 @@ const SettingsPage = () => {
             className="bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-white px-4 py-2 rounded-md"
           >
             {darkMode ? 'Disattiva' : 'Attiva'}
-          </button>
-        </div>
-
-        {/* Account Information Section */}
-        <div className="space-y-4">
-          <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
-            <FaUser className="text-blue-500" /> Account Information
-          </h2>
-          <div className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Email Address</label>
-            <div className="flex items-center bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md p-2">
-              <FaEnvelope className="text-gray-500 mr-2" />
-              <input
-                type="email"
-                className="bg-transparent focus:outline-none w-full text-gray-800 dark:text-white"
-                placeholder="Enter new email"
-              />
-            </div>
-          </div>
-          <div className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
-            <div className="flex items-center bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md p-2">
-              <FaLock className="text-gray-500 mr-2" />
-              <input
-                type="password"
-                className="bg-transparent focus:outline-none w-full text-gray-800 dark:text-white"
-                placeholder="Enter new password"
-              />
-            </div>
-          </div>
-          <button className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-md font-semibold mt-4">
-            Save Changes
           </button>
         </div>
 
