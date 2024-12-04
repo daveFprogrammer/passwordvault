@@ -6,7 +6,7 @@ const LogoutPage = () => {
 
   useEffect(() => {
     // Effettua eventuali operazioni di logout come la pulizia dei dati dell'utente
-    localStorage.removeItem('passwords'); // Esempio: rimuovere i dati di autenticazione
+    localStorage.removeItem('auth_token'); // Esempio: rimuovere i dati di autenticazione
     // Reindirizza alla homepage dopo il logout
     setTimeout(() => {
       navigate('/');

@@ -18,6 +18,7 @@ import SignOut from './components/SignOut';
 import ContattaSupporto from './components/ContattaSupporto';
 import PrivacyPolicyPage from './components/PrivacyPolicyPage';
 import TermsOfServicePage from './components/TermsOfServicePage';
+import LogoutPage from './components/LogoutPage';
 
 const App = () => {
   return (
@@ -31,6 +32,7 @@ const App = () => {
           <Route path="/" element={<HomePage />} />     
           <Route path="/generate" element={<PasswordGenerator />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<LogoutPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/vault" element={<VaultPage />} />
           <Route path="/team" element={<IlNostroTeam />} />
