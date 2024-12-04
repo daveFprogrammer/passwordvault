@@ -3,16 +3,13 @@ import axios from "axios";
 import { useProfile } from "../ProfileContext";
 import { useNavigate } from "react-router-dom";
 
-import user1 from "./assets/user1.png";
-import user2 from "./assets/user2.png";
-import user3 from "./assets/user3.png";
-
 const YourProfilePage = () => {
   const { profile, setProfile } = useProfile();
   const navigate = useNavigate();
 
-  const profileImages = [user1, user2, user3];
-  const [profileImageIndex, setProfileImageIndex] = useState(0);
+  const [image, setImage] = useState(null); // Stato per il file immagine
+  const [previewImage, setPreviewImage] = useState(null); // Stato per l'anteprima
+
   const [phoneNumber, setPhoneNumber] = useState(
     profile.phoneNumber || "+39 123 456 7890"
   );
@@ -59,8 +56,16 @@ const YourProfilePage = () => {
     fetchProfileData();
   }, [setProfile, navigate, token]);
 
-  const handleSwitchImage = () => {
-    setProfileImageIndex((prevIndex) => (prevIndex + 1) % profileImages.length);
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImage(file); // Salva il file nello stato
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewImage(reader.result); // Imposta l'anteprima
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleSaveChanges = async () => {
@@ -72,10 +77,10 @@ const YourProfilePage = () => {
 
     setLoading(true);
     const formData = new FormData();
-    formData.append("profile_image", profileImages[profileImageIndex]);
     if (phoneNumber) formData.append("phone_number", phoneNumber);
     if (email) formData.append("email", email);
     formData.append("two_factor_auth", twoFactorAuth ? "true" : "false");
+    if (image) formData.append("profile_image", image); // Aggiunge l'immagine
 
     try {
       const response = await axios.put(
@@ -117,16 +122,23 @@ const YourProfilePage = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
           <div className="col-span-1 text-center">
             <img
-              src={profileImages[profileImageIndex]}
               alt="Profile"
+              src={previewImage || "URL_DELL'IMMAGINE_DI_DEFAULT"} // Anteprima o immagine di default
               className="w-32 h-32 mx-auto rounded-full object-cover border-2 border-gray-300"
             />
-            <button
-              onClick={handleSwitchImage}
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="hidden"
+              id="upload-profile-image"
+            />
+            <label
+              htmlFor="upload-profile-image"
               className="text-sm text-blue-500 hover:underline cursor-pointer"
             >
               Cambia immagine
-            </button>
+            </label>
           </div>
 
           <div className="col-span-2">

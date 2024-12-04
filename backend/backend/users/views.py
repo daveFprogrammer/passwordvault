@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate
 from rest_framework.decorators import api_view
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.parsers import MultiPartParser, FormParser
 
 class RegisterUserView(APIView):
     def post(self, request):
@@ -35,6 +36,7 @@ def login_view(request):
     
 class UserProfileView(APIView):
     permission_classes = [IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]
 
     def get(self, request):
         user = request.user
