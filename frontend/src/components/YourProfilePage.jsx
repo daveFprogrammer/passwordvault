@@ -63,6 +63,7 @@ const YourProfilePage = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreviewImage(reader.result); // Imposta l'anteprima
+        setProfile((prev) => ({ ...prev, avatar: reader.result }));
       };
       reader.readAsDataURL(file);
     }
