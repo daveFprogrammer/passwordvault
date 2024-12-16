@@ -6,6 +6,7 @@ This web application allows users to securely manage their passwords. Each user 
 
 - **User Registration and Login**: Create an account, log in, and access only personal data.
 - **Password Management**: Save, view, and delete personal passwords.
+- **Profile Personalization**: Update you personal user information.
 - **Security Key Generation**: Generate a random security key or customize it using specific parameters.
 - **Data Security**: Password data is accessible only to the owner.
 
@@ -96,7 +97,24 @@ cd passwordvault
 - Django backend will be available at [http://localhost:8000](http://localhost:8000).
 - React frontend will be available at [http://localhost:3000](http://localhost:3000).
 
+## Usage
+
+- **Log In or Create an Account**: Access the application by logging in with your username and password by clicking on the **`Accedi`** button in the middle of the page. *An account is required to use all features of the application*.
+
+- **Manage Passwords**: After logging in, navigate to the **`Cassaforte`** section in the top Navbar to manage your personal passwords. You can view, add, or delete your saved passwords.
+
+- **Generate a Secure Password**: If you want to add a new password but don’t know what to use, go to the **`Generatore di Password`** section in the Navbar. This tool allows you to generate a strong and efficient security key.
+
+- **Update Profile Settings**: To update your user profile settings, click on the icon in the top-right corner and select the **`Your Profile`** section. Here, you can modify your email, add your phone number, or change your profile image.
+
+- **Log Out**: Once you are done using the application, click on the icon in the top-right corner and select **`Logout`** to securely log out.
+
 ## Development Notes
 
 - **Authentication**: Use JWT tokens for user authentication, storing them securely.
 - **API**: APIs are protected, so each request requires an authentication token. Axios is configured to automatically add the token.
+
+## Future Features
+
+- **Two-Factor Authentication**: To guarantee even more security for users, in the future we will implement two-factor authentication to access your personal account.
+- **Push Notifications**: To warn you that your passwords may no longer be secure, in the future we will implement the ability to send push notifications.
