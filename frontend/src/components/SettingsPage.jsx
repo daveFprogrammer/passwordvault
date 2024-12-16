@@ -1,49 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { FaLock, FaBell, FaMoon, FaSun } from 'react-icons/fa';
+import React from 'react';
+import { FaLock, FaBell, } from 'react-icons/fa';
 
 const SettingsPage = () => {
-  // Stato per il dark mode
-  const [darkMode, setDarkMode] = useState(false);
 
-  // Carica la preferenza dal localStorage al caricamento
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('darkMode');
-    if (savedTheme === 'true') {
-      setDarkMode(true);
-      document.documentElement.classList.add('dark');
-    }
-  }, []);
 
-  // Funzione per switchare il tema
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    if (!darkMode) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('darkMode', 'true');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('darkMode', 'false');
-    }
-  };
 
   return (
     <div className="p-8 bg-gray-100 dark:bg-gray-900 min-h-screen flex flex-col items-center">
       <div className="max-w-2xl w-full bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6 space-y-8">
         <h1 className="text-3xl font-bold text-gray-800 dark:text-white text-center mb-4">Settings</h1>
 
-        {/* Dark Mode Switch */}
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-300 flex items-center gap-2">
-            {darkMode ? <FaMoon className="text-yellow-500" /> : <FaSun className="text-yellow-500" />}
-            Dark Mode
-          </h2>
-          <button
-            onClick={toggleDarkMode}
-            className="bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-white px-4 py-2 rounded-md"
-          >
-            {darkMode ? 'Disattiva' : 'Attiva'}
-          </button>
-        </div>
+
 
         {/* Notifications Section */}
         <div className="space-y-4">
