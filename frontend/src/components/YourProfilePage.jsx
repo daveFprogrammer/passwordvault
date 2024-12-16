@@ -40,7 +40,7 @@ const YourProfilePage = () => {
             },
           }
         );
-        setProfile(response.data);
+        setProfile((prevProfile) => ({ ...prevProfile, ...response.data }));
         setPhoneNumber(response.data.phone_number || "+39 123 456 7890");
         setEmail(response.data.email || "user@example.com");
         setTwoFactorAuth(response.data.two_factor_auth || false);
@@ -93,7 +93,11 @@ const YourProfilePage = () => {
           },
         }
       );
-      setProfile(response.data);
+      setProfile((prev) => ({
+        ...prev,
+        ...response.data,
+      }));
+
       alert("Modifiche salvate con successo!");
     } catch (error) {
       console.error("Errore nel salvare le modifiche", error);
@@ -198,14 +202,12 @@ const YourProfilePage = () => {
               <li>
                 Ultimo accesso:{" "}
                 <span className="text-gray-700">
-                  {profile.lastAccess || "12/11/2024"}
+                  {new Date().toLocaleDateString()}
                 </span>
               </li>
               <li>
                 Password salvate:{" "}
-                <span className="text-gray-700">
-                  {profile.savedPasswords || 25}
-                </span>
+                <span className="text-gray-700">{profile.savedPasswords}</span>
               </li>
               <li>
                 Livello di sicurezza:{" "}
