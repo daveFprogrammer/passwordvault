@@ -1,11 +1,12 @@
 # Password Vault Web Application
 
-This web application allows users to securely manage their passwords and other sensitive data. Each user can create an account, log in, and view, add, or delete their own passwords within a personal area.
+This web application allows users to securely manage their passwords. Each user can create an account, log in, and view, add, or delete their own passwords within a personal area.
 
 ## Features
 
 - **User Registration and Login**: Create an account, log in, and access only personal data.
 - **Password Management**: Save, view, and delete personal passwords.
+- **Security Key Generation**: Generate a random security key or customize it using specific parameters.
 - **Data Security**: Password data is accessible only to the owner.
 
 ## Tech Stack
@@ -31,8 +32,8 @@ Make sure you have the following tools installed:
 ### 1. Clone the Project
 
 ```bash
-git clone https://github.com/your-username/repository-name.git
-cd repository-name
+git clone https://github.com/daveFprogrammer/passwordvault.git
+cd passwordvault
 ```
 
 ### 2. Django Backend Setup
@@ -40,6 +41,7 @@ cd repository-name
 1. **Create a Virtual Environment**: Navigate to the backend directory and create a virtual environment.
 
    ```bash
+   cd backend
    python3 -m venv .venv
    source .venv/bin/activate  # On Windows: .venv\Scripts\activate
    ```
@@ -53,6 +55,7 @@ cd repository-name
 3. **Apply Migrations**: Navigate to the backend Django application and set up the database with initial migrations.
 
    ```bash
+   cd backend
    python manage.py migrate
    ```
 
@@ -97,8 +100,3 @@ cd repository-name
 
 - **Authentication**: Use JWT tokens for user authentication, storing them securely.
 - **API**: APIs are protected, so each request requires an authentication token. Axios is configured to automatically add the token.
-
-## License
-
-Distributed under the MIT License. See `LICENSE` for more details.
-```
